@@ -13,7 +13,7 @@ from typing import Any
 import requests
 from fastmcp import FastMCP
 from qdrant_client import QdrantClient
-from qdrant_client.models import ScoredPoint
+from qdrant_client.models import Distance, VectorParams
 
 # ── Configuration ─────────────────────────────────────────────────────────────
 
@@ -82,12 +82,12 @@ def search_vault(query: str, top_k: int = DEFAULT_TOP_K) -> str:
         return f"Error embedding query via Ollama: {e}"
 
     try:
-        results: list[ScoredPoint] = qdrant.search(
+        results = qdrant.query_points(
             collection_name=COLLECTION_NAME,
-            query_vector=vector,
+            query=vector,
             limit=top_k,
             with_payload=True,
-        )
+        ).points
     except Exception as e:
         return f"Error querying Qdrant: {e}"
 
