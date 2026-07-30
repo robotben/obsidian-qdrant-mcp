@@ -170,4 +170,4 @@ if __name__ == "__main__":
     log.info(f"Starting Obsidian Qdrant MCP server on port {MCP_PORT}")
     log.info(f"Ollama: {OLLAMA_BASE_URL} ({EMBED_MODEL})")
     log.info(f"Qdrant: {QDRANT_HOST}:{QDRANT_PORT} → {COLLECTION_NAME}")
-    mcp.run(transport="sse", port=MCP_PORT, host="0.0.0.0")
+    mcp.run(transport="streamable-http", port=MCP_PORT, host="0.0.0.0")
